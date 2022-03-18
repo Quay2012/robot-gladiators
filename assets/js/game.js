@@ -12,10 +12,12 @@ var playerMoney = 10;
 
 
 var fight = function(enemyName) {
-    //Alert players that they are starting the round
-    window.alert("Welcome to Robot Gladiators!");
 
-    //Subtract the value of playerAttack from the value of enemyHealth and use that result to update the value in the enemyHealth variale
+    // repeat and execute as long as the enemy-robot is alive
+    while(enemyHealth > 0) {
+        // place fight function code block here...
+
+       //Subtract the value of playerAttack from the value of enemyHealth and use that result to update the value in the enemyHealth variale
     enemyHealth = enemyHealth - playerAttack
 
     //Log a resulting message to the console to confirm that it worked
@@ -86,6 +88,15 @@ var fight = function(enemyName) {
     }
     }
 
-for(var i = 0; i < enemyNames.length; i++) {
+
+    }
+
+    
+
+for (var i = 0; i < enemyNames.length; i++) {
+    var pickedEnemyName = enemyNames[i];
+    enemyHealth = 50;
+    fight(pickedEnemyName);
+    //call fight function with enemy-robot
 fight(enemyNames[i]);
 }
