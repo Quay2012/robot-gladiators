@@ -16,6 +16,7 @@ console.log(enemyNames[3]);
 
 
 var fight = function(enemyName) {
+    debugger;
 
     // repeat and execute as long as the enemy-robot is alive
     while (enemyHealth > 0 && enemyHealth > 0) {
@@ -103,6 +104,7 @@ var fight = function(enemyName) {
 
     
 var startGame = function() {
+    debugger;
         // reset player stats
         playerHealth = 100;
         playerAttack = 10;
@@ -120,6 +122,18 @@ for (var i = 0; i < enemyNames.length; i++) {
     // reset enemyHealth before starting new fight
     enemyHealth = 50;
     fight(pickedEnemyName);
+
+    // if the player is still alive and we're not at the last enemy in the array
+    if (playerHealth > 0 && i < enemyNames.length - 1) {
+
+        // ask if player wants to use the store before next round
+        var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+
+        //if yes, take them to the store() function
+        if (storeConfirm) {
+        shop();
+        }
+    }
 }
 
 else {
@@ -128,7 +142,7 @@ else {
     }
   }
   //start the game when the page loads
-startGame();
+endGame();
 };
 
 // function to end the entire game
@@ -142,6 +156,67 @@ var endGame = function() {
         window.alert("You've lost your robot in battle.");
     }
     window.alert("The game has now ended. Let's see how you did!");
+
+    if (playerHealth > 0 && i < enemyNames.length - 1) {
+        //ask if player wants to use the store before next round
+        var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+
+        //if yes, take them to the store() function
+        if (storeConfirm) {
+            shop();
+        }
+    }
+
+    var shop = function() {
+        //ask player what they'd like to do
+        var shopOptionPrompt = window.prompt(
+            "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', 'LEAVE' to make a choice."
+        );
+
+        //use switch when checking a single value against multiple possibilities(or cases)
+        switch (shopOptionPrompt) {
+            case "REFILL": //since the "or" operator does not work in switches
+            case "refill":
+                if (playerMoney >= 7) {
+                window.alert("Refilling player's health by 20 for 7 dollars.");
+
+                // increase health and decrease money
+                playerHealth = playerHealth + 20;
+                playerMoney = playerMoney - 7;
+                } else {
+                    window.alert("You don't have enough money!");
+                }
+                break;
+
+            case "upgrade":
+            case "UPGRADE":    
+                if (playerMoney >= 7) {
+                window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+                // increase attack and decrease money
+                playerAttack = playerAttack + 6;
+                playerMoney = playerMoney - 7;
+                } else {
+                    window.alert("You don't have enough money!");
+                }
+                break;
+
+            case "leave":
+            case "CASE":    
+                window.alert("Leaving the store.");
+                
+                // do nothing, so function will end
+                break;
+
+                default:
+                    window.alert("You did not pick a valid option. Try again.");
+
+                    // call shop() again to force player to pick a valid option
+                    shop();
+                    break;
+        }
+
+    };
 
     // ask player if they'd like to play again
 
